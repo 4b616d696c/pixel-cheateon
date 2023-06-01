@@ -31,6 +31,7 @@ import com.pixelcheateon.journal.Document;
 import com.pixelcheateon.messages.Messages;
 import com.pixelcheateon.scenes.GameScene;
 import com.pixelcheateon.scenes.PixelScene;
+import com.pixelcheateon.utils.GLog;
 import com.pixelcheateon.windows.WndChallenges;
 import com.pixelcheateon.windows.WndGame;
 import com.pixelcheateon.windows.WndJournal;
@@ -57,6 +58,7 @@ public class MenuPane extends Component {
 
 	private JournalButton btnJournal;
 	private MenuButton btnMenu;
+	private CheatButton btnCheat;
 
 	private Toolbar.PickedUpItem pickedUp;
 
@@ -64,7 +66,7 @@ public class MenuPane extends Component {
 
 	private DangerIndicator danger;
 
-	public static final int WIDTH = 32;
+	public static final int WIDTH = 64;
 
 	@Override
 	protected void createChildren() {
@@ -134,6 +136,9 @@ public class MenuPane extends Component {
 		btnMenu = new MenuButton();
 		add( btnMenu );
 
+		btnCheat = new CheatButton();
+		add(btnCheat);
+
 		version = new BitmapText( "v" + Game.version, PixelScene.pixelFont);
 		version.alpha( 0.5f );
 		add(version);
@@ -153,7 +158,9 @@ public class MenuPane extends Component {
 
 		btnMenu.setPos( x + WIDTH - btnMenu.width(), y );
 
-		btnJournal.setPos( btnMenu.left() - btnJournal.width() + 2, y );
+		btnCheat.setPos(btnMenu.left() - btnCheat.width() + 2, y);
+
+		btnJournal.setPos( btnCheat.left() - btnJournal.width() + 2, y );
 
 		depthIcon.x = btnJournal.left() - 7 + (7 - depthIcon.width())/2f - 0.1f;
 		depthIcon.y = y + 1;
@@ -389,6 +396,84 @@ public class MenuPane extends Component {
 		@Override
 		protected String hoverText() {
 			return Messages.titleCase(Messages.get(WndKeyBindings.class, "menu"));
+		}
+	}
+
+	private static class CheatButton extends Button {
+
+		private Image bg;
+		private Image cheatIcon;
+
+		public CheatButton() {
+			super();
+
+			width = bg.width + 4;
+			height = bg.height + 4;
+		}
+
+		@Override
+		public GameAction keyAction() {
+			return PCAction.JOURNAL;
+		}
+
+		@Override
+		protected void createChildren() {
+			super.createChildren();
+
+			bg = new Image( Assets.Interfaces.MENU_BTN, 2, 2, 13, 11 );
+			add( bg );
+
+			cheatIcon = new Image( Assets.Interfaces.MENU_BTN, 32, 7, 9, 9);
+			add( cheatIcon );
+		}
+
+		@Override
+		protected void layout() {
+			super.layout();
+
+			bg.x = x + 2;
+			bg.y = y + 2;
+
+			cheatIcon.x = bg.x + (bg.width() - cheatIcon.width())/2f;
+			cheatIcon.y = bg.y + (bg.height() - cheatIcon.height())/2f;
+			PixelScene.align(cheatIcon);
+		}
+
+		private float time;
+
+//		@Override
+//		public void update() {
+//			super.update();
+//
+//			if (flashingPage != null){
+//				journalIcon.am = (float)Math.abs(Math.cos( StatusPane.FLASH_RATE * (time += Game.elapsed) ));
+//				keyIcon.am = journalIcon.am;
+//				bg.brightness(0.5f + journalIcon.am);
+//				if (time >= Math.PI/StatusPane.FLASH_RATE) {
+//					time = 0;
+//				}
+//			}
+//		}
+
+		@Override
+		protected void onPointerDown() {
+			bg.brightness( 1.5f );
+			Sample.INSTANCE.play( Assets.Sounds.CLICK );
+		}
+
+		@Override
+		protected void onPointerUp() {
+			bg.resetColor();
+		}
+
+		@Override
+		protected void onClick() {
+			GLog.i("Cheat button clicked");
+		}
+
+		@Override
+		protected String hoverText() {
+			return Messages.titleCase(Messages.get(WndKeyBindings.class, "cheats"));
 		}
 	}
 }
