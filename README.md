@@ -1,4 +1,4 @@
-# Shattered Pixel Dungeon
+# Pixel Cheateon
 
 Pixel Cheateon is an open-source traditional roguelike dungeon crawler with randomized levels and enemies, and hundreds of items to collect and use. This version also includes cheats. Its based on the source code of [Shattered Pixel Dungeon](https://github.com/00-Evan/shattered-pixel-dungeon), by [Watabou](https://www.watabou.ru) and Evan Debenham.
 
