@@ -4,6 +4,6 @@ apply plugin: 'java-library'
 sourceCompatibility = targetCompatibility = appJavaCompatibility
 
 dependencies {
-    implementation project(':SPD-classes')
+    implementation project(':PC-classes')
     api project(':services')
 }

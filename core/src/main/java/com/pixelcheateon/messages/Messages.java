@@ -116,7 +116,7 @@ public class Messages {
 	public static String get(Class c, String k, Object...args){
 		String key;
 		if (c != null){
-			key = c.getName().replace("com.shatteredpixel.shatteredpixeldungeon.", "");
+			key = c.getName().replace("com.pixelcheateon.", "");
 			key += "." + k;
 		} else
 			key = k;

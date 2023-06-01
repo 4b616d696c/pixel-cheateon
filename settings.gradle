@@ -1,5 +1,5 @@
 //core game code modules
-include ':SPD-classes'
+include ':PC-classes'
 include ':core'
 
 //platform modules
