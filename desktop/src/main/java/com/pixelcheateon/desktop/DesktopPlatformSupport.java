@@ -25,14 +25,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.PixmapPacker;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.utils.SharedLibraryLoader;
-import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
+import com.pixelcheateon.PCSettings;
 import com.watabou.noosa.Game;
 import com.watabou.utils.PlatformSupport;
 import com.watabou.utils.Point;
 
-import java.awt.Desktop;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,8 +49,8 @@ public class DesktopPlatformSupport extends PlatformSupport {
 			previousSizes[1] = previousSizes[0];
 			previousSizes[0] = new Point(Game.width, Game.height);
 		}
-		if (!SPDSettings.fullscreen()) {
-			SPDSettings.windowResolution( previousSizes[0] );
+		if (!PCSettings.fullscreen()) {
+			PCSettings.windowResolution( previousSizes[0] );
 		}
 		//TODO fixes an in libGDX v1.11.0 with macOS displays
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight());
@@ -64,10 +61,10 @@ public class DesktopPlatformSupport extends PlatformSupport {
 		Gdx.app.postRunnable( new Runnable() {
 			@Override
 			public void run () {
-				if (SPDSettings.fullscreen()){
+				if (PCSettings.fullscreen()){
 					Gdx.graphics.setFullscreenMode( Gdx.graphics.getDisplayMode() );
 				} else {
-					Point p = SPDSettings.windowResolution();
+					Point p = PCSettings.windowResolution();
 					Gdx.graphics.setWindowedMode( p.x, p.y );
 				}
 			}

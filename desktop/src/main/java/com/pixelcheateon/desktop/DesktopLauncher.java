@@ -27,12 +27,12 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3FileHandle;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Preferences;
 import com.badlogic.gdx.utils.SharedLibraryLoader;
-import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
-import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.services.news.News;
-import com.shatteredpixel.shatteredpixeldungeon.services.news.NewsImpl;
-import com.shatteredpixel.shatteredpixeldungeon.services.updates.UpdateImpl;
-import com.shatteredpixel.shatteredpixeldungeon.services.updates.Updates;
+import com.pixelcheateon.PCSettings;
+import com.pixelcheateon.PixelCheateon;
+import com.pixelcheateon.journal.services.news.News;
+import com.pixelcheateon.services.news.NewsImpl;
+import com.pixelcheateon.services.updates.UpdateImpl;
+import com.pixelcheateon.journal.services.updates.Updates;
 import com.watabou.noosa.Game;
 import com.watabou.utils.FileUtils;
 import com.watabou.utils.Point;
@@ -161,17 +161,17 @@ public class DesktopLauncher {
 		}
 
 		config.setPreferencesConfig( basePath, baseFileType );
-		SPDSettings.set( new Lwjgl3Preferences( new Lwjgl3FileHandle(basePath + SPDSettings.DEFAULT_PREFS_FILE, baseFileType) ));
+		PCSettings.set( new Lwjgl3Preferences( new Lwjgl3FileHandle(basePath + PCSettings.DEFAULT_PREFS_FILE, baseFileType) ));
 		FileUtils.setDefaultFileProperties( baseFileType, basePath );
 		
 		config.setWindowSizeLimits( 720, 400, -1, -1 );
-		Point p = SPDSettings.windowResolution();
+		Point p = PCSettings.windowResolution();
 		config.setWindowedMode( p.x, p.y );
 
-		config.setMaximized(SPDSettings.windowMaximized());
+		config.setMaximized(PCSettings.windowMaximized());
 
 		//going fullscreen on launch is still buggy on macOS, so game enters it slightly later
-		if (SPDSettings.fullscreen() && !SharedLibraryLoader.isMac) {
+		if (PCSettings.fullscreen() && !SharedLibraryLoader.isMac) {
 			config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
 		}
 		
@@ -182,6 +182,6 @@ public class DesktopLauncher {
 		config.setWindowIcon("icons/icon_16.png", "icons/icon_32.png", "icons/icon_48.png",
 				"icons/icon_64.png", "icons/icon_128.png", "icons/icon_256.png");
 
-		new Lwjgl3Application(new ShatteredPixelDungeon(new DesktopPlatformSupport()), config);
+		new Lwjgl3Application(new PixelCheateon(new DesktopPlatformSupport()), config);
 	}
 }

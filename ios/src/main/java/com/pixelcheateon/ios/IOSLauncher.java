@@ -26,12 +26,12 @@ import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
 import com.badlogic.gdx.backends.iosrobovm.IOSPreferences;
 import com.badlogic.gdx.graphics.glutils.HdpiMode;
-import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
-import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.services.news.News;
-import com.shatteredpixel.shatteredpixeldungeon.services.news.NewsImpl;
-import com.shatteredpixel.shatteredpixeldungeon.services.updates.UpdateImpl;
-import com.shatteredpixel.shatteredpixeldungeon.services.updates.Updates;
+import com.pixelcheateon.PCSettings;
+import com.pixelcheateon.PixelCheateon;
+import com.pixelcheateon.journal.services.news.News;
+import com.pixelcheateon.services.news.NewsImpl;
+import com.pixelcheateon.services.updates.UpdateImpl;
+import com.pixelcheateon.journal.services.updates.Updates;
 import com.watabou.noosa.Game;
 import com.watabou.utils.FileUtils;
 
@@ -86,7 +86,7 @@ public class IOSLauncher extends IOSApplication.Delegate {
 		//sets up preferences early so they can be read.
 		//this is mostly a copy-paste from IOSApplication.getPreferences
 			File libraryPath = new File(System.getenv("HOME"), "Library");
-			File finalPath = new File(libraryPath, SPDSettings.DEFAULT_PREFS_FILE + ".plist");
+			File finalPath = new File(libraryPath, PCSettings.DEFAULT_PREFS_FILE + ".plist");
 
 			@SuppressWarnings("unchecked")
 			NSMutableDictionary<NSString, NSObject> nsDictionary = (NSMutableDictionary<NSString, NSObject>)NSMutableDictionary
@@ -97,7 +97,7 @@ public class IOSLauncher extends IOSApplication.Delegate {
 				nsDictionary = new NSMutableDictionary<NSString, NSObject>();
 				nsDictionary.write(finalPath, false);
 			}
-			SPDSettings.set(new IOSPreferences(nsDictionary, finalPath.getAbsolutePath()));
+			PCSettings.set(new IOSPreferences(nsDictionary, finalPath.getAbsolutePath()));
 		//end of prefs setup
 
 		IOSApplicationConfiguration config = new IOSApplicationConfiguration();
@@ -106,8 +106,8 @@ public class IOSLauncher extends IOSApplication.Delegate {
 		config.depthFormat = GLKViewDrawableDepthFormat.None;
 		config.hdpiMode = HdpiMode.Pixels;
 
-		config.hideHomeIndicator = SPDSettings.fullscreen();
-		config.overrideRingerSwitch = SPDSettings.ignoreSilentMode();
+		config.hideHomeIndicator = PCSettings.fullscreen();
+		config.overrideRingerSwitch = PCSettings.ignoreSilentMode();
 
 		config.screenEdgesDeferringSystemGestures = UIRectEdge.All;
 
@@ -171,7 +171,7 @@ public class IOSLauncher extends IOSApplication.Delegate {
 		config.addIosDevice("IPAD_PRO_12.9_6G", "iPad14,5", 264);
 		config.addIosDevice("IPAD_PRO_12.9_6G", "iPad14,6", 264);
 
-		return new IOSApplication(new ShatteredPixelDungeon(new IOSPlatformSupport()), config);
+		return new IOSApplication(new PixelCheateon(new IOSPlatformSupport()), config);
 	}
 
 	public static void main(String[] argv) {

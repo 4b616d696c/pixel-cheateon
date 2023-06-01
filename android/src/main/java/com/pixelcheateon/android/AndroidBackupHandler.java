@@ -28,9 +28,9 @@ import android.app.backup.BackupDataOutput;
 import android.app.backup.FullBackupDataOutput;
 import android.os.ParcelFileDescriptor;
 
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.Rankings;
-import com.shatteredpixel.shatteredpixeldungeon.journal.Journal;
+import com.pixelcheateon.Badges;
+import com.pixelcheateon.Rankings;
+import com.pixelcheateon.journal.Journal;
 
 import java.io.File;
 

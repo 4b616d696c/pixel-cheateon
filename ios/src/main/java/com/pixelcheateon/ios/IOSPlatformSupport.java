@@ -22,15 +22,12 @@
 package com.pixelcheateon.ios;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.iosrobovm.IOSGraphics;
 import com.badlogic.gdx.backends.iosrobovm.objectal.OALSimpleAudio;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PixmapPacker;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
-import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
+import com.pixelcheateon.PCSettings;
+import com.pixelcheateon.PixelCheateon;
 import com.watabou.noosa.Game;
 import com.watabou.utils.PlatformSupport;
 
@@ -55,7 +52,7 @@ public class IOSPlatformSupport extends PlatformSupport {
 			UIApplication.getSharedApplication().setStatusBarHidden(true);
 		}
 
-		if (!SPDSettings.fullscreen()) {
+		if (!PCSettings.fullscreen()) {
 			int insetChange = Gdx.graphics.getSafeInsetBottom() - Game.bottomInset;
 			Game.bottomInset = Gdx.graphics.getSafeInsetBottom();
 			Game.height -= insetChange;
@@ -73,7 +70,7 @@ public class IOSPlatformSupport extends PlatformSupport {
 		int prevInset = Game.bottomInset;
 		updateDisplaySize();
 		if (prevInset != Game.bottomInset) {
-			ShatteredPixelDungeon.seamlessResetScene();
+			PixelCheateon.seamlessResetScene();
 		}
 	}
 

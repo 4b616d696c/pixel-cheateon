@@ -23,7 +23,7 @@ package com.pixelcheateon.desktop;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Window;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3WindowListener;
-import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
+import com.pixelcheateon.PCSettings;
 import com.watabou.noosa.audio.Music;
 
 public class DesktopWindowListener implements Lwjgl3WindowListener {
@@ -33,21 +33,21 @@ public class DesktopWindowListener implements Lwjgl3WindowListener {
 	
 	@Override
 	public void maximized ( boolean b ) {
-		SPDSettings.windowMaximized( b );
+		PCSettings.windowMaximized( b );
 		if (b){
-			SPDSettings.windowResolution(DesktopPlatformSupport.previousSizes[1]);
+			PCSettings.windowResolution(DesktopPlatformSupport.previousSizes[1]);
 		}
 	}
 	
 	@Override
 	public void iconified ( boolean b ) { }
 	public void focusLost () {
-		if (!SPDSettings.playMusicInBackground()) {
+		if (!PCSettings.playMusicInBackground()) {
 			Music.INSTANCE.pause();
 		}
 	}
 	public void focusGained () {
-		if (!SPDSettings.playMusicInBackground()){
+		if (!PCSettings.playMusicInBackground()){
 			Music.INSTANCE.resume();
 		}
 	}
