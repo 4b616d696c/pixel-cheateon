@@ -201,6 +201,7 @@ public class PCSettings extends GameSettings {
 	public static final String KEY_CUSTOM_SEED	= "custom_seed";
 	public static final String KEY_LAST_DAILY	= "last_daily";
 	public static final String KEY_INTRO		= "intro";
+	public static final String KEY_CHEATS       = "cheats";
 
 	public static final String KEY_SUPPORT_NAGGED= "support_nagged";
 	
@@ -226,6 +227,14 @@ public class PCSettings extends GameSettings {
 	
 	public static int challenges() {
 		return getInt( KEY_CHALLENGES, 0, 0, Challenges.MAX_VALUE );
+	}
+
+	public static void cheats( boolean value ) {
+		put( KEY_CHEATS, value );
+	}
+
+	public static boolean cheats() {
+		return getBoolean( KEY_CHEATS, true );
 	}
 
 	public static void customSeed( String value ){

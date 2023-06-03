@@ -360,7 +360,9 @@ public class HeroSelectScene extends PixelScene {
 	}
 
 	private void updateOptionsColor(){
-		if (!PCSettings.customSeed().isEmpty()){
+		if (PCSettings.cheats()){
+			btnOptions.icon().hardlight(0.6f, 1.23f, 1.62f);
+		} else if (!PCSettings.customSeed().isEmpty()){
 			btnOptions.icon().hardlight(1f, 1.5f, 0.67f);
 		} else if (PCSettings.challenges() != 0){
 			btnOptions.icon().hardlight(2f, 1.33f, 0.5f);
@@ -564,6 +566,36 @@ public class HeroSelectScene extends PixelScene {
 
 			buttons = new ArrayList<>();
 			spacers = new ArrayList<>();
+
+			StyledButton cheatButton = new StyledButton(Chrome.Type.BLANK, Messages.get(HeroSelectScene.class, "cheats"), 6){
+				@Override
+				protected void onClick() {
+						/*PixelCheateon.scene().addToFront(new WndChallenges(PCSettings.challenges(), true) {
+							public void onBackPressed() {
+								super.onBackPressed();
+								icon(Icons.get(PCSettings.challenges() > 0 ? Icons.CHALLENGE_ON : Icons.CHALLENGE_OFF));
+								updateOptionsColor();
+							}
+						} );*/
+
+					if (PCSettings.cheats()) {
+						PCSettings.cheats(false);
+						icon.resetColor();
+					}
+					else
+					{
+						PCSettings.cheats(true);
+						icon.hardlight(0.6f, 1.23f, 1.62f);
+					}
+					updateOptionsColor();
+				}
+			};
+			cheatButton.leftJustify = true;
+			cheatButton.icon(Icons.get(Icons.CHEATS));
+			if (PCSettings.cheats()) cheatButton.icon().hardlight(0.6f, 1.23f, 1.62f);
+			add(cheatButton);
+			buttons.add(cheatButton);
+
 			if (DeviceCompat.isDebug() || Badges.isUnlocked(Badges.Badge.VICTORY)){
 				StyledButton seedButton = new StyledButton(Chrome.Type.BLANK, Messages.get(HeroSelectScene.class, "custom_seed"), 6){
 					@Override
